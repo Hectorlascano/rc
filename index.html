@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Conectando Oportunidades - Presentación</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.min.js"></script>
@@ -24,8 +24,11 @@
             padding: 0;
         }
         
-        body {
+        html, body {
             overflow: hidden;
+            height: 100%;
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
         }
         
         .reveal {
@@ -41,10 +44,11 @@
             width: 100% !important;
             height: 100% !important;
             text-align: left;
+            font-size: 28px; /* Tamaño base más pequeño */
         }
         
         .reveal .slides section {
-            padding: 20px 40px !important;
+            padding: 20px 30px !important;
             height: 100% !important;
             display: flex !important;
             flex-direction: column;
@@ -54,95 +58,97 @@
         }
         
         .slide-content {
-            max-height: 85vh;
+            max-height: 80vh;
             overflow-y: auto;
-            padding: 10px;
+            padding: 10px 5px;
+            width: 100%;
         }
         
+        /* Scrollbar personalizada */
         .slide-content::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         
         .slide-content::-webkit-scrollbar-track {
             background: rgba(255,255,255,0.1);
-            border-radius: 4px;
+            border-radius: 3px;
         }
         
         .slide-content::-webkit-scrollbar-thumb {
             background: var(--primary);
-            border-radius: 4px;
+            border-radius: 3px;
         }
         
         .reveal h1, .reveal h2, .reveal h3 {
             color: var(--primary);
             text-transform: none;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             word-wrap: break-word;
         }
         
         .reveal h1 {
-            font-size: clamp(2.2em, 5vw, 3em);
+            font-size: 2.2em;
             text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             line-height: 1.2;
         }
         
         .reveal h2 {
-            font-size: clamp(1.8em, 4vw, 2.2em);
+            font-size: 1.8em;
             border-bottom: 3px solid var(--primary);
             padding-bottom: 0.3em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
         
         .reveal h3 {
-            font-size: clamp(1.3em, 3vw, 1.6em);
+            font-size: 1.4em;
             color: var(--secondary);
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
         
         .reveal p {
-            font-size: clamp(1em, 2.5vw, 1.2em);
-            line-height: 1.5;
-            margin-bottom: 1rem;
+            font-size: 1em;
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
         }
         
         .reveal ul, .reveal ol {
-            font-size: clamp(0.9em, 2.2vw, 1.1em);
-            line-height: 1.4;
-            margin-left: 1.2em;
-            margin-bottom: 1rem;
+            font-size: 0.9em;
+            line-height: 1.3;
+            margin-left: 1em;
+            margin-bottom: 0.8rem;
         }
         
         .reveal li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.8rem;
+            margin: 1.2rem 0;
         }
         
         .stat-card {
             background: rgba(255, 255, 255, 0.1);
-            padding: 1.2rem;
-            border-radius: 12px;
+            padding: 1rem;
+            border-radius: 10px;
             border-left: 4px solid var(--accent);
             text-align: center;
-            min-height: 100px;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
         
         .stat-number {
-            font-size: clamp(1.5em, 3vw, 2em);
+            font-size: 1.6em;
             font-weight: bold;
             color: var(--accent);
             display: block;
             line-height: 1;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
         
         .flow-diagram {
@@ -150,26 +156,26 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 0.8rem;
-            margin: 1.5rem 0;
+            gap: 0.6rem;
+            margin: 1.2rem 0;
         }
         
         .flow-step {
             text-align: center;
-            padding: 1rem;
+            padding: 0.8rem;
             background: rgba(0, 212, 255, 0.1);
             border-radius: 8px;
-            min-width: 120px;
+            min-width: 110px;
             flex: 1;
-            min-height: 80px;
+            min-height: 70px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            font-size: clamp(0.9em, 2vw, 1em);
+            font-size: 0.85em;
         }
         
         .flow-arrow {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: var(--primary);
             display: flex;
             align-items: center;
@@ -178,19 +184,19 @@
         
         .highlight-box {
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            padding: 1.2rem;
-            border-radius: 12px;
+            padding: 1rem;
+            border-radius: 10px;
             color: white;
-            margin: 1.2rem 0;
+            margin: 1rem 0;
             text-align: center;
-            font-size: clamp(1em, 2.5vw, 1.1em);
+            font-size: 0.95em;
         }
         
         .story-card {
             background: rgba(255, 255, 255, 0.1);
-            padding: 1.2rem;
+            padding: 1rem;
             border-radius: 8px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             border-left: 4px solid var(--secondary);
         }
         
@@ -199,44 +205,94 @@
         }
         
         .money-flow {
-            font-size: clamp(1.1em, 2.5vw, 1.3em);
+            font-size: 1.1em;
             text-align: center;
-            padding: 1.2rem;
+            padding: 1rem;
             background: rgba(255, 107, 107, 0.1);
             border-radius: 8px;
-            margin: 1.2rem 0;
+            margin: 1rem 0;
         }
         
         .phase-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.8rem;
+            margin: 1.2rem 0;
         }
         
         .phase-card {
             text-align: center;
-            padding: 1.2rem;
+            padding: 1rem;
             border-radius: 8px;
-            min-height: 140px;
+            min-height: 120px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            font-size: clamp(0.9em, 2vw, 1em);
+            font-size: 0.85em;
         }
         
         .phase-1 { background: rgba(0, 212, 255, 0.1); }
         .phase-2 { background: rgba(78, 205, 196, 0.1); }
         .phase-3 { background: rgba(255, 107, 107, 0.1); }
         
+        /* CONTROLES DE NAVEGACIÓN MÓVIL */
+        .mobile-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: none;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+        
+        .mobile-nav-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        
+        .mobile-nav-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Indicador de navegación */
+        .navigation-hint {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.7em;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
+            .reveal .slides {
+                font-size: 24px; /* Tamaño más pequeño en tablets */
+            }
+            
             .reveal .slides section {
                 padding: 15px 20px !important;
             }
             
             .slide-content {
-                max-height: 80vh;
+                max-height: 75vh;
             }
             
             .flow-diagram {
@@ -245,7 +301,7 @@
             
             .flow-arrow {
                 transform: rotate(90deg);
-                margin: 0.3rem 0;
+                margin: 0.2rem 0;
             }
             
             .stats-grid {
@@ -255,28 +311,47 @@
             .phase-grid {
                 grid-template-columns: 1fr;
             }
+            
+            /* Mostrar controles móviles */
+            .mobile-controls {
+                display: flex;
+            }
+            
+            .navigation-hint {
+                bottom: 80px; /* Subir para no chocar con controles */
+            }
         }
         
         @media (max-width: 480px) {
+            .reveal .slides {
+                font-size: 20px; /* Tamaño más pequeño en móviles */
+            }
+            
             .reveal .slides section {
                 padding: 10px 15px !important;
             }
             
             .stat-card, .story-card, .flow-step, .phase-card {
-                padding: 1rem;
+                padding: 0.8rem;
                 min-height: auto;
             }
             
             .highlight-box, .money-flow {
-                padding: 1rem;
+                padding: 0.8rem;
             }
             
             .slide-content {
-                max-height: 75vh;
+                max-height: 70vh;
+            }
+            
+            .mobile-nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1em;
             }
         }
         
-        /* Animaciones mejoradas */
+        /* Animaciones */
         .fragment.fade-in.visible {
             animation: slideInUp 0.6s ease;
         }
@@ -305,20 +380,16 @@
             text-align: center;
         }
         
-        /* Indicador de navegación */
-        .navigation-hint {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.5);
-            font-size: 0.8em;
-            text-align: center;
-        }
-        
         /* Asegurar que no haya overflow */
         .reveal .slides section * {
             max-width: 100%;
+        }
+        
+        /* Ocultar controles nativos de reveal en móvil */
+        @media (max-width: 768px) {
+            .reveal .controls {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -333,8 +404,8 @@
                     <p style="color: var(--accent);">
                         La plataforma que transforma el comercio en Venezuela
                     </p>
-                    <div style="margin-top: 2rem;">
-                        <div style="opacity: 0.8;">Presentación para Inversionistas</div>
+                    <div style="margin-top: 1.5rem;">
+                        <div style="opacity: 0.8; font-size: 0.9em;">Presentación para Inversionistas</div>
                     </div>
                 </div>
                 <div class="navigation-hint">Usa las flechas → para navegar</div>
@@ -372,7 +443,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="navigation-hint">↓ Más contenido - Usa flecha abajo</div>
+                <div class="navigation-hint">↓ Más contenido</div>
             </section>
 
             <!-- Slide 3: Historias Reales -->
@@ -442,17 +513,17 @@
                     <div class="fragment fade-in">
                         <div class="stats-grid">
                             <div class="stat-card">
-                                <div style="font-size: 1.8em; color: var(--accent);">1</div>
+                                <div style="font-size: 1.6em; color: var(--accent);">1</div>
                                 <strong>Registro</strong><br>
                                 En 5 minutos
                             </div>
                             <div class="stat-card">
-                                <div style="font-size: 1.8em; color: var(--accent);">2</div>
+                                <div style="font-size: 1.6em; color: var(--accent);">2</div>
                                 <strong>Promoción</strong><br>
                                 Comparte productos
                             </div>
                             <div class="stat-card">
-                                <div style="font-size: 1.8em; color: var(--accent);">3</div>
+                                <div style="font-size: 1.6em; color: var(--accent);">3</div>
                                 <strong>Comisión</strong><br>
                                 Gana por ventas
                             </div>
@@ -468,8 +539,11 @@
                 </div>
             </section>
 
-            <!-- Slides restantes con la misma estructura... -->
-            <!-- Solo incluyo los primeros 5 como ejemplo, el resto seguiría el mismo patrón -->
+            <!-- Controles móviles -->
+            <div class="mobile-controls">
+                <button class="mobile-nav-btn" onclick="Reveal.left()">←</button>
+                <button class="mobile-nav-btn" onclick="Reveal.right()">→</button>
+            </div>
 
         </div>
     </div>
@@ -485,17 +559,41 @@
             touch: true,
             slideNumber: false,
             showNotes: false,
-            margin: 0.08,
-            minScale: 0.2,
-            maxScale: 2.0,
+            margin: 0.05, // Márgen más pequeño
+            minScale: 0.5, // Escala mínima reducida
+            maxScale: 1.0, // Escala máxima fija
             width: '100%',
             height: '100%',
-            overflow: false
+            disableLayout: false
         });
+
+        // Prevenir zoom con doble tap en móviles
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
 
         // Prevenir scroll accidental
         document.addEventListener('scroll', function(e) {
             e.preventDefault();
+            window.scrollTo(0, 0);
+        }, { passive: false });
+
+        // También prevenir wheel zoom
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
         }, { passive: false });
     </script>
 </body>
