@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Conectando Oportunidades - Para Gene</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00D4FF;
+            --secondary: #FF6B6B;
+            --accent: #4ECDC4;
+            --dark-bg: #0a0a0a;
+            --success: #00ffaa;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            background: var(--dark-bg);
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .presentation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--dark-bg);
+            cursor: pointer;
+        }
+        
+        .slides-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-content {
+            width: 100%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0.95);
+            transition: all 0.6s ease 0.3s;
+        }
+        
+        .slide.active .slide-content {
+            transform: scale(1);
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .slide.active h1,
+        .slide.active h2,
+        .slide.active h3 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h1 {
+            font-size: 3em;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            text-align: center;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 2.2em;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .slide.active p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide.active p:nth-child(1) { transition-delay: 0.4s; }
+        .slide.active p:nth-child(2) { transition-delay: 0.5s; }
+        .slide.active p:nth-child(3) { transition-delay: 0.6s; }
+
+        strong {
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        ul, ol {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-left: 1.5em;
+            margin-bottom: 2rem;
+            color: #ddd;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+        
+        .slide.active ul,
+        .slide.active ol {
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: 0.7s;
+        }
+        
+        li {
+            margin-bottom: 0.8rem;
+            padding-left: 0.5rem;
+        }
+        
+        .highlight {
+            background: rgba(0, 212, 255, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent);
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.6s ease;
+        }
+        
+        .slide.active .highlight {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 0.8s;
+        }
+
+        .investment-box {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid var(--success);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            box-shadow: 0 10px 30px rgba(0, 255, 170, 0.2);
+        }
+
+        .slide.active .investment-box {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.9s;
+        }
+
+        .investment-box h3 {
+            color: var(--success);
+            margin-bottom: 1rem;
+            font-size: 1.5em;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .slide.active .timeline {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.8s;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.5s ease;
+        }
+
+        .slide.active .timeline-item:nth-child(1) { opacity: 1; transform: translateX(0); transition-delay: 0.9s; }
+        .slide.active .timeline-item:nth-child(2) { opacity: 1; transform: translateX(0); transition-delay: 1.0s; }
+        .slide.active .timeline-item:nth-child(3) { opacity: 1; transform: translateX(0); transition-delay: 1.1s; }
+
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            color: var(--dark-bg);
+            font-weight: bold;
+        }
+
+        .timeline-content h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.3em;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.8s ease;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+            box-shadow: 0 12px 35px rgba(78, 205, 196, 0.4);
+            opacity: 1;
+        }
+        
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-btn.prev::before {
+            content: "←";
+        }
+        
+        .nav-btn.next::before {
+            content: "→";
+        }
+        
+        .click-hint {
+            position: fixed;
+            bottom: 100px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9em;
+            z-index: 1000;
+            background: rgba(0,0,0,0.7);
+            padding: 12px 24px;
+            border-radius: 25px;
+            margin: 0 auto;
+            width: fit-content;
+            opacity: 0;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .click-hint.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-indicator {
+            position: fixed;
+            top: 15px;
+            right: 30px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9em;
+            z-index: 1000;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-1000px) rotate(360deg); }
+        }
+
+        @media (min-width: 769px) {
+            .slide-content { 
+                padding: 40px;
+                max-height: 80vh;
+            }
+            h1 { font-size: 3.5em; }
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 15px; }
+            .slide-content { 
+                padding: 20px;
+                max-height: 75vh;
+            }
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            .controls { padding: 0 20px; }
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide { padding: 10px; }
+            .slide-content { 
+                padding: 15px;
+                max-height: 70vh;
+            }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.5em; }
+            p { font-size: 1em; }
+        }
+
+        .slide-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .slide-content::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .slide-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <!-- Floating Particles -->
+        <div class="particles" id="particles"></div>
+        
+        <div class="slides-container">
+            
+            <!-- Slide 1: Portada -->
+            <div class="slide active" id="slide-1">
+                <div class="slide-content">
+                    <h1>Conectando Oportunidades</h1>
+                    <p style="text-align: center; color: var(--accent); font-size: 1.4em; font-weight: 500;">
+                        Una forma simple de ayudar a miles de venezolanos a ganar más
+                    </p>
+                    <p style="text-align: center; font-size: 1em; margin-top: 2rem; color: #999;">
+                        Presentado especialmente para Gene
+                    </p>
+                </div>
+            </div>
+
+            <!-- Los demás slides mantienen el mismo contenido pero con las nuevas clases de animación -->
+            <!-- Slide 2: El Problema -->
+            <div class="slide" id="slide-2">
+                <div class="slide-content">
+                    <h2>El Problema: Dos mundos desconectados</h2>
+                    <p>En Venezuela hay miles de personas como <strong>María</strong>, que trabaja 12 horas y apenas gana para comer.</p>
+                    <p>Y hay cientos de negocios como el de <strong>Don Carlos</strong>, con productos geniales que nadie conoce fuera de su barrio.</p>
+                    <div class="highlight">
+                        <strong>No falta talento. No faltan productos. Falta la conexión.</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: La Solución -->
+            <div class="slide" id="slide-3">
+                <div class="slide-content">
+                    <h2>Nuestra solución: Como Uber, pero para ventas</h2>
+                    <p>Una app simple que conecta a personas que quieren vender (sin invertir en inventario) con negocios que quieren crecer (sin gastar en publicidad cara).</p>
+                    <div class="highlight">
+                        <strong>Vendedor:</strong> Gana comisión por cada venta.<br>
+                        <strong>Negocio:</strong> Vende más sin pagar sueldo fijo ni alquiler.<br>
+                        <strong>Nosotros:</strong> Ganamos una pequeña comisión cuando hay una venta.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Cómo Funciona -->
+            <div class="slide" id="slide-4">
+                <div class="slide-content">
+                    <h2>Cómo funciona en 3 pasos</h2>
+                    <ol>
+                        <li><strong>Se registra</strong> en la app (5 minutos, gratis)</li>
+                        <li><strong>Comparte</strong> productos de negocios en WhatsApp, Instagram o cara a cara</li>
+                        <li><strong>Gana dinero</strong> por cada venta (¡sin invertir un bolívar!)</li>
+                    </ol>
+                    <p style="text-align: center; margin-top: 2rem; color: var(--accent); font-style: italic;">
+                        Ya lo probamos con 50 vendedores. Todos ganaron su primer pago en menos de una semana.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 5: El Mercado -->
+            <div class="slide" id="slide-5">
+                <div class="slide-content">
+                    <h2>El mercado: Grande y listo</h2>
+                    <p>Más de <strong>2 millones de personas</strong> en Venezuela están buscando formas de ganar dinero extra.</p>
+                    <p>Miles de negocios locales tienen productos de calidad pero no saben cómo llegar a más clientes.</p>
+                    <p>En solo 3 meses, ya conectamos a 50 vendedores con 12 negocios. Las ventas crecen un 30% cada mes.</p>
+                </div>
+            </div>
+
+            <!-- Slide 6: ¿Qué necesitamos? -->
+            <div class="slide" id="slide-6">
+                <div class="slide-content">
+                    <h2>¿Qué necesitamos de ti?</h2>
+                    <p>No pedimos millones. Solo necesitamos <strong>$15,000</strong> para llevar esta solución a miles de personas.</p>
+                    <div class="investment-box">
+                        <h3>Con $15,000, en 6 meses logramos:</h3>
+                        <ul style="text-align: left; margin-top: 1rem;">
+                            <li>500 vendedores activos</li>
+                            <li>100 negocios conectados</li>
+                            <li>Break-even (gastos = ingresos)</li>
+                            <li>Y demostramos que el modelo funciona a gran escala</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: ¿Por qué ahora? -->
+            <div class="slide" id="slide-7">
+                <div class="slide-content">
+                    <h2>¿Por qué ahora es el momento?</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot">1</div>
+                            <div class="timeline-content">
+                                <h4>La gente necesita ingresos YA</h4>
+                                <p>La crisis económica sigue empujando a millones a buscar alternativas.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">2</div>
+                            <div class="timeline-content">
+                                <h4>El comercio se está digitalizando</h4>
+                                <p>Cada vez más personas usan WhatsApp e Instagram para vender y comprar.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">3</div>
+                            <div class="timeline-content">
+                                <h4>Nosotros ya lo probamos</h4>
+                                <p>No es una idea en el papel. Ya funciona en la realidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Cierre -->
+            <div class="slide" id="slide-8">
+                <div class="slide-content">
+                    <h2>¿Te unes a esta oportunidad?</h2>
+                    <p>No te pedimos que apuestes a una idea abstracta.</p>
+                    <p>Te invitamos a <strong>apoyar una solución que ya está funcionando</strong> y que puede cambiar la vida de miles de personas —incluyendo a María y a Don Carlos.</p>
+                    <div class="highlight" style="background: rgba(0, 255, 170, 0.15); border-left-color: var(--success);">
+                        <strong>Con $15,000, no solo ganamos nosotros… ganan miles de venezolanos.</strong>
+                    </div>
+                    <p style="text-align: center; margin-top: 2rem; font-style: italic; color: var(--accent); font-size: 1.3em;">
+                        ¿Hablamos?
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Controles -->
+        <div class="controls">
+            <button class="nav-btn prev" onclick="previousSlide()"></button>
+            <button class="nav-btn next" onclick="nextSlide()"></button>
+        </div>
+        <div class="click-hint" id="clickHint">Haz clic o toca para continuar</div>
+        <div class="slide-indicator">
+            <span id="current-slide">1</span> / <span id="total-slides">8</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        // Inicializar
+        document.getElementById('total-slides').textContent = totalSlides;
+        updateProgress();
+        createParticles();
+
+        function showSlide(index) {
+            // Ocultar slide actual
+            slides[currentSlide].classList.remove('active');
+            
+            // Mostrar nueva slide
+            if (index >= 0 && index < totalSlides) {
+                currentSlide = index;
+                slides[currentSlide].classList.add('active');
+                updateProgress();
+                updateSlideIndicator();
+                updateClickHint();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
+
+        function updateSlideIndicator() {
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function updateClickHint() {
+            const hint = document.getElementById('clickHint');
+            hint.classList.toggle('visible', currentSlide < totalSlides - 1);
+        }
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Tamaño y posición aleatorios
+                const size = Math.random() * 100 + 50;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 30 + 20;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                particle.style.opacity = Math.random() * 0.1 + 0.05;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('nav-btn')) {
+                nextSlide();
+            }
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.classList.contains('nav-btn')) {
+                nextSlide();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                case 'PageDown':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'PageUp':
+                    e.preventDefault();
+                    previousSlide();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    showSlide(0);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    showSlide(totalSlides - 1);
+                    break;
+            }
+        });
+
+        // Prevenir zoom en móviles
+        document.addEventListener('gesturestart', (e) => e.preventDefault());
+        document.addEventListener('gesturechange', (e) => e.preventDefault());
+        document.addEventListener('gestureend', (e) => e.preventDefault());
+    </script>
+</body>
+</html>
