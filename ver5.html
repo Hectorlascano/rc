@@ -12,7 +12,6 @@
             --accent: #4ECDC4;
             --dark-bg: #0a0a0a;
             --success: #00ffaa;
-            --card-bg: rgba(255, 255, 255, 0.05);
         }
         
         * {
@@ -57,177 +56,114 @@
             padding: 0;
             display: none;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .slide.active {
             display: flex;
-            opacity: 1;
-            transform: translateY(0);
         }
         
         .slide-content {
             width: 100%;
             max-width: 900px;
-            max-height: 90vh;
+            height: 100%;
             overflow-y: auto;
-            padding: 40px 30px;
+            padding: 10px 15px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 0 20px;
-            transform: scale(0.95);
-            transition: all 0.6s ease 0.3s;
-        }
-        
-        .slide.active .slide-content {
-            transform: scale(1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         h1 {
-            font-size: 3em;
+            font-size: 2.2em;
             color: var(--primary);
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
             line-height: 1.2;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        
-        .slide.active h1 {
-            opacity: 1;
-            transform: translateY(0);
         }
         
         h2 {
-            font-size: 2.2em;
+            font-size: 1.7em;
             color: white;
-            margin: 1.5rem 0 1.2rem;
+            margin: 0.8rem 0 0.6rem;
             font-weight: 600;
-            opacity: 0;
-            transform: translateY(25px);
-            transition: all 0.7s ease;
-        }
-        
-        .slide.active h2 {
-            opacity: 1;
-            transform: translateY(0);
         }
         
         p, li {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin: 1rem 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-        
-        .slide.active p,
-        .slide.active li {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .slide.active p:nth-child(1) { transition-delay: 0.4s; }
-        .slide.active p:nth-child(2) { transition-delay: 0.5s; }
-        .slide.active p:nth-child(3) { transition-delay: 0.6s; }
-        .slide.active p:nth-child(4) { transition-delay: 0.7s; }
-
-        strong {
-            color: white;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.1em;
+            line-height: 1.4;
+            margin: 0.5rem 0;
         }
         
         ul {
             text-align: left;
-            margin: 1.5rem auto;
-            padding-left: 1.5rem;
+            margin: 0.8rem auto;
+            padding-left: 1.2rem;
             max-width: 600px;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.6s ease;
-        }
-        
-        .slide.active ul {
-            opacity: 1;
-            transform: translateX(0);
-            transition-delay: 0.7s;
         }
         
         .highlight-box {
-            background: rgba(0, 212, 255, 0.15);
-            border-left: 4px solid var(--accent);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
             text-align: center;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 0.6s ease;
-        }
-        
-        .slide.active .highlight-box {
-            opacity: 1;
-            transform: scale(1);
-            transition-delay: 0.8s;
         }
         
         .investment-card {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             border: 2px solid var(--success);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-            box-shadow: 0 10px 30px rgba(0, 255, 170, 0.2);
-        }
-
-        .slide.active .investment-card {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: 0.9s;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 0.8rem 0;
         }
         
         .investment-card h3 {
             color: var(--success);
-            margin-bottom: 1rem;
-            font-size: 1.8em;
+            margin-bottom: 0.5rem;
+            font-size: 1.4em;
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.6rem;
+            margin: 0.8rem 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .step-card {
             background: rgba(255, 255, 255, 0.08);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 1rem 0;
-            font-size: 1.2em;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1em;
+            border-left: 3px solid var(--primary);
+            text-align: left;
         }
-
-        .slide.active .step-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
-        .slide.active .step-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
-        .slide.active .step-card:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
+        
+        .step-number {
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+        
+        .fade-item {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .fade-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         
         /* Progress Bar */
         .progress-bar {
@@ -235,52 +171,44 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: rgba(255, 255, 255, 0.1);
             z-index: 1001;
         }
-
+        
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--accent));
             width: 0%;
-            transition: width 0.8s ease;
+            transition: width 0.4s ease;
         }
         
         /* Controles */
         .controls {
             position: fixed;
-            bottom: 25px;
+            bottom: 15px;
             left: 0;
             right: 0;
             display: flex;
             justify-content: space-between;
-            padding: 0 30px;
+            padding: 0 20px;
             z-index: 1000;
         }
         
         .nav-btn {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: var(--primary);
             color: white;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
-            transition: all 0.3s ease;
-            opacity: 0.9;
-        }
-        
-        .nav-btn:hover {
-            transform: scale(1.1);
-            background: var(--accent);
-            box-shadow: 0 12px 35px rgba(78, 205, 196, 0.4);
-            opacity: 1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
         }
         
         .nav-btn:active {
@@ -294,109 +222,71 @@
         
         .slide-indicator {
             position: fixed;
-            top: 15px;
-            right: 30px;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.9rem;
+            top: 8px;
+            right: 15px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
             z-index: 1000;
             background: rgba(0,0,0,0.5);
-            padding: 8px 16px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 12px;
         }
         
         .click-hint {
             position: fixed;
-            bottom: 90px;
+            bottom: 70px;
             left: 0;
             right: 0;
             text-align: center;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8em;
             z-index: 1000;
-            background: rgba(0,0,0,0.7);
-            padding: 12px 24px;
-            border-radius: 25px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 16px;
+            border-radius: 20px;
             margin: 0 auto;
             width: fit-content;
             opacity: 0;
-            transition: all 0.5s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: opacity 0.3s ease;
         }
         
         .click-hint.visible {
             opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Floating particles background */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 50%;
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-1000px) rotate(360deg); }
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             .slide-content {
-                padding: 30px 20px;
-                margin: 0 15px;
-                max-height: 85vh;
+                padding: 8px 12px;
             }
             
-            h1 { font-size: 2.2em; }
-            h2 { font-size: 1.8em; }
-            p, li { font-size: 1.1em; }
+            h1 { 
+                font-size: 1.8em; 
+                margin-bottom: 0.6rem;
+            }
+            
+            h2 { 
+                font-size: 1.5em; 
+                margin: 0.6rem 0 0.4rem;
+            }
+            
+            p, li { 
+                font-size: 1em; 
+                margin: 0.4rem 0;
+            }
+            
+            .steps-container {
+                gap: 0.5rem;
+                margin: 0.6rem 0;
+            }
+            
+            .step-card {
+                padding: 0.8rem;
+                font-size: 0.95em;
+            }
             
             .controls { 
-                bottom: 20px; 
-                padding: 0 20px; 
-            }
-            
-            .nav-btn { 
-                width: 50px; 
-                height: 50px; 
-                font-size: 1.3rem; 
-            }
-            
-            .click-hint {
-                bottom: 80px;
-                font-size: 0.8em;
-                padding: 10px 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .slide-content {
-                padding: 25px 15px;
-                margin: 0 10px;
-                max-height: 80vh;
-            }
-            
-            h1 { font-size: 1.8em; }
-            h2 { font-size: 1.5em; }
-            p, li { font-size: 1em; }
-            
-            .controls { 
-                bottom: 15px; 
+                bottom: 12px; 
                 padding: 0 15px; 
             }
             
@@ -406,33 +296,82 @@
                 font-size: 1.2rem; 
             }
             
-            .slide-indicator {
-                top: 10px;
-                right: 15px;
-                font-size: 0.8rem;
+            .click-hint {
+                bottom: 65px;
+                font-size: 0.75em;
                 padding: 6px 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slide-content {
+                padding: 5px 10px;
+            }
+            
+            h1 { 
+                font-size: 1.6em; 
+                margin-bottom: 0.5rem;
+            }
+            
+            h2 { 
+                font-size: 1.3em; 
+                margin: 0.5rem 0 0.3rem;
+            }
+            
+            p, li { 
+                font-size: 0.95em; 
+                margin: 0.3rem 0;
+            }
+            
+            .highlight-box,
+            .investment-card {
+                padding: 0.8rem;
+                margin: 0.6rem 0;
+            }
+            
+            .steps-container {
+                gap: 0.4rem;
+                margin: 0.5rem 0;
+            }
+            
+            .step-card {
+                padding: 0.7rem;
+                font-size: 0.9em;
+            }
+            
+            .controls { 
+                bottom: 10px; 
+                padding: 0 12px; 
+            }
+            
+            .nav-btn { 
+                width: 40px; 
+                height: 40px; 
+                font-size: 1.1rem; 
+            }
+            
+            .slide-indicator {
+                top: 5px;
+                right: 10px;
+                font-size: 0.75rem;
+                padding: 3px 6px;
             }
             
             .click-hint {
-                bottom: 70px;
+                bottom: 60px;
                 font-size: 0.7em;
-                padding: 8px 16px;
+                padding: 5px 10px;
             }
         }
 
         /* Scroll suave */
         .slide-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .slide-content::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
+            width: 4px;
         }
         
         .slide-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 4px;
+            background: var(--primary);
+            border-radius: 2px;
         }
     </style>
 </head>
@@ -442,45 +381,42 @@
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
-
-        <!-- Floating Particles -->
-        <div class="particles" id="particles"></div>
         
         <div class="slides-container">
             <!-- Slide 1: Portada -->
             <div class="slide active" data-slide="1">
                 <div class="slide-content">
-                    <h1>Conectando Oportunidades</h1>
-                    <p>Una solución real para dos problemas críticos en Venezuela</p>
+                    <h1 class="fade-item">Conectando Oportunidades</h1>
+                    <p class="fade-item">Una solución real para dos problemas críticos en Venezuela</p>
                 </div>
             </div>
 
             <!-- Slide 2: El Problema -->
             <div class="slide" data-slide="2">
                 <div class="slide-content">
-                    <h2>El Problema</h2>
-                    <p>En Venezuela coexisten dos realidades:</p>
-                    <p><strong>MILLONES</strong> de personas talentosas buscando generar ingresos…</p>
-                    <p>…y <strong>MILES</strong> de negocios con productos excelentes que no llegan a todo su mercado.</p>
+                    <h2 class="fade-item">El Problema</h2>
+                    <p class="fade-item">En Venezuela coexisten dos realidades:</p>
+                    <p class="fade-item"><strong>MILLONES</strong> de personas talentosas buscando generar ingresos…</p>
+                    <p class="fade-item">…y <strong>MILES</strong> de negocios con productos excelentes que no llegan a todo su mercado.</p>
                 </div>
             </div>
 
             <!-- Slide 3: Historias Reales -->
             <div class="slide" data-slide="3">
                 <div class="slide-content">
-                    <h2>Historias Reales</h2>
-                    <p><strong>María</strong>: Madre de 3 hijos. Trabaja 12 horas al día. Gana apenas para comer.</p>
-                    <p><strong>Don Carlos</strong>: Tiene productos que podrían venderse en todo el país… pero nadie los conoce fuera de su ciudad.</p>
-                    <p>Historias como estas nos inspiraron a actuar.</p>
+                    <h2 class="fade-item">Historias Reales</h2>
+                    <p class="fade-item"><strong>María</strong>: Madre de 3 hijos. Trabaja 12 horas al día. Gana apenas para comer.</p>
+                    <p class="fade-item"><strong>Don Carlos</strong>: Tiene productos que podrían venderse en todo el país… pero nadie los conoce fuera de su ciudad.</p>
+                    <p class="fade-item">Historias como estas nos inspiraron a actuar.</p>
                 </div>
             </div>
 
             <!-- Slide 4: La Solución -->
             <div class="slide" data-slide="4">
                 <div class="slide-content">
-                    <h2>Nuestra Solución</h2>
-                    <p>Una plataforma simple que conecta vendedores con negocios.</p>
-                    <div class="highlight-box">
+                    <h2 class="fade-item">Nuestra Solución</h2>
+                    <p class="fade-item">Una plataforma simple que conecta vendedores con negocios.</p>
+                    <div class="highlight-box fade-item">
                         <p><strong>Para vendedores:</strong> Cero inversión en inventario.</p>
                         <p><strong>Para negocios:</strong> Cero costo fijo para expandirse.</p>
                     </div>
@@ -490,56 +426,64 @@
             <!-- Slide 5: Cómo Funciona -->
             <div class="slide" data-slide="5">
                 <div class="slide-content">
-                    <h2>Cómo Funciona</h2>
-                    <p>Tan simple como 1-2-3:</p>
-                    <div class="step-card">1. Se registran en la app (menos de 5 minutos)</div>
-                    <div class="step-card">2. Comparten productos (por WhatsApp, Instagram, en persona)</div>
-                    <div class="step-card">3. Ganan comisión por cada venta (¡sin arriesgar su dinero!)</div>
+                    <h2 class="fade-item">Cómo Funciona</h2>
+                    <p class="fade-item">Tan simple como 1-2-3:</p>
+                    <div class="steps-container">
+                        <div class="step-card fade-item">
+                            <span class="step-number">1.</span> Se registran en la app (menos de 5 minutos)
+                        </div>
+                        <div class="step-card fade-item">
+                            <span class="step-number">2.</span> Comparten productos (por WhatsApp, Instagram, en persona)
+                        </div>
+                        <div class="step-card fade-item">
+                            <span class="step-number">3.</span> Ganan comisión por cada venta (¡sin arriesgar su dinero!)
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Slide 6: Mercado -->
             <div class="slide" data-slide="6">
                 <div class="slide-content">
-                    <h2>El Mercado</h2>
-                    <p>En Venezuela, hay una oportunidad de <strong>más de $500 millones al año</strong> en este tipo de comercio.</p>
-                    <p>Nosotros no necesitamos todo eso. Solo el <strong>1%</strong> ya nos da un negocio de <strong>$5 millones anuales</strong>.</p>
+                    <h2 class="fade-item">El Mercado</h2>
+                    <p class="fade-item">En Venezuela, hay una oportunidad de <strong>más de $500 millones al año</strong> en este tipo de comercio.</p>
+                    <p class="fade-item">Nosotros no necesitamos todo eso. Solo el <strong>1%</strong> ya nos da un negocio de <strong>$5 millones anuales</strong>.</p>
                 </div>
             </div>
 
             <!-- Slide 7: Modelo de Negocio -->
             <div class="slide" data-slide="7">
                 <div class="slide-content">
-                    <h2>Cómo Ganamos</h2>
-                    <p>Nosotros ganamos una <strong>comisión del 10%</strong> sobre cada venta.</p>
-                    <p>Es un modelo probado en todo el mundo (como Booking, Uber, Mercado Libre)… pero adaptado a Venezuela.</p>
+                    <h2 class="fade-item">Cómo Ganamos</h2>
+                    <p class="fade-item">Nosotros ganamos una <strong>comisión del 10%</strong> sobre cada venta.</p>
+                    <p class="fade-item">Es un modelo probado en todo el mundo (como Booking, Uber, Mercado Libre)… pero adaptado a Venezuela.</p>
                 </div>
             </div>
 
             <!-- Slide 8: Plan de Ejecución -->
             <div class="slide" data-slide="8">
                 <div class="slide-content">
-                    <h2>Nuestro Plan</h2>
-                    <p>Empezamos pequeño para validar que funciona.</p>
-                    <p>Luego crecemos paso a paso, de forma controlada.</p>
-                    <p>Ya lo probamos con 50 personas. Funciona.</p>
+                    <h2 class="fade-item">Nuestro Plan</h2>
+                    <p class="fade-item">Empezamos pequeño para validar que funciona.</p>
+                    <p class="fade-item">Luego crecemos paso a paso, de forma controlada.</p>
+                    <p class="fade-item">Ya lo probamos con 50 personas. Funciona.</p>
                 </div>
             </div>
 
             <!-- Slide 9: Qué Necesitamos -->
             <div class="slide" data-slide="9">
                 <div class="slide-content">
-                    <h2>¿Qué Necesitamos de Ti?</h2>
-                    <div class="investment-card">
+                    <h2 class="fade-item">¿Qué Necesitamos de Ti?</h2>
+                    <div class="investment-card fade-item">
                         <h3>$15,000</h3>
                         <p>Para 6 meses de operaciones</p>
                     </div>
-                    <p>Con esto:</p>
+                    <p class="fade-item">Con esto:</p>
                     <ul>
-                        <li>Llegamos a 500 vendedores</li>
-                        <li>Conectamos 100 negocios</li>
-                        <li>Alcanzamos el punto donde los ingresos cubren los gastos</li>
-                        <li>Y demostramos que el modelo funciona a gran escala</li>
+                        <li class="fade-item">Llegamos a 500 vendedores</li>
+                        <li class="fade-item">Conectamos 100 negocios</li>
+                        <li class="fade-item">Alcanzamos el punto donde los ingresos cubren los gastos</li>
+                        <li class="fade-item">Y demostramos que el modelo funciona a gran escala</li>
                     </ul>
                 </div>
             </div>
@@ -547,22 +491,22 @@
             <!-- Slide 10: Por Qué Ahora -->
             <div class="slide" data-slide="10">
                 <div class="slide-content">
-                    <h2>¿Por Qué Ahora?</h2>
-                    <p><strong>1.</strong> La gente necesita ingresos YA.</p>
-                    <p><strong>2.</strong> El comercio se mueve por WhatsApp e Instagram.</p>
-                    <p><strong>3.</strong> Nosotros ya lo hicimos funcionar en pequeño.</p>
-                    <p>Este es el momento perfecto.</p>
+                    <h2 class="fade-item">¿Por Qué Ahora?</h2>
+                    <p class="fade-item"><strong>1.</strong> La gente necesita ingresos YA.</p>
+                    <p class="fade-item"><strong>2.</strong> El comercio se mueve por WhatsApp e Instagram.</p>
+                    <p class="fade-item"><strong>3.</strong> Nosotros ya lo hicimos funcionar en pequeño.</p>
+                    <p class="fade-item">Este es el momento perfecto.</p>
                 </div>
             </div>
 
             <!-- Slide 11: Cierre -->
             <div class="slide" data-slide="11">
                 <div class="slide-content">
-                    <h2>¿Te Unes?</h2>
-                    <p>No te pedimos que apuestes a una idea.</p>
-                    <p>Te invitamos a <strong>apoyar una solución que ya está funcionando</strong>.</p>
-                    <p>Juntos, podemos transformar el comercio en Venezuela… y cambiar la vida de miles de personas como María y Don Carlos.</p>
-                    <p style="color: var(--accent); font-style: italic; font-size: 1.3em;">¿Hablamos?</p>
+                    <h2 class="fade-item">¿Te Unes?</h2>
+                    <p class="fade-item">No te pedimos que apuestes a una idea.</p>
+                    <p class="fade-item">Te invitamos a <strong>apoyar una solución que ya está funcionando</strong>.</p>
+                    <p class="fade-item">Juntos, podemos transformar el comercio en Venezuela… y cambiar la vida de miles de personas como María y Don Carlos.</p>
+                    <p class="fade-item" style="color: var(--accent); font-style: italic;">¿Hablamos?</p>
                 </div>
             </div>
         </div>
@@ -586,37 +530,13 @@
             const totalSlides = slides.length;
             let currentSlideIndex = 0;
             let currentElementIndex = 0;
+            let animatedElements = [];
             
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const currentIndicator = document.getElementById('current');
             const progressFill = document.getElementById('progressFill');
             const clickHint = document.getElementById('clickHint');
-            
-            // Crear partículas de fondo
-            function createParticles() {
-                const particlesContainer = document.getElementById('particles');
-                const particleCount = 12;
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    
-                    const size = Math.random() * 80 + 40;
-                    const left = Math.random() * 100;
-                    const animationDuration = Math.random() * 25 + 20;
-                    const animationDelay = Math.random() * 5;
-                    
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    particle.style.left = `${left}%`;
-                    particle.style.animationDuration = `${animationDuration}s`;
-                    particle.style.animationDelay = `${animationDelay}s`;
-                    particle.style.opacity = Math.random() * 0.08 + 0.05;
-                    
-                    particlesContainer.appendChild(particle);
-                }
-            }
             
             function updateProgress() {
                 const progress = ((currentSlideIndex + 1) / totalSlides) * 100;
@@ -633,7 +553,8 @@
             }
             
             function updateClickHint() {
-                clickHint.classList.toggle('visible', currentSlideIndex < totalSlides - 1);
+                const hasMoreElements = currentElementIndex < animatedElements.length;
+                clickHint.classList.toggle('visible', hasMoreElements || currentSlideIndex < totalSlides - 1);
             }
             
             function showSlide(index) {
@@ -645,11 +566,32 @@
                 currentSlideIndex = index;
                 currentElementIndex = 0;
                 
+                // Obtener elementos animables de esta slide
+                animatedElements = Array.from(slides[index].querySelectorAll('.fade-item'));
+                
                 updateIndicator();
+                
+                // Mostrar primer elemento automáticamente
+                if (animatedElements.length > 0) {
+                    showNextElement();
+                }
+            }
+            
+            function showNextElement() {
+                if (currentElementIndex < animatedElements.length) {
+                    const element = animatedElements[currentElementIndex];
+                    element.classList.add('visible');
+                    currentElementIndex++;
+                    updateClickHint();
+                }
             }
             
             function handleNext() {
-                if (currentSlideIndex < totalSlides - 1) {
+                if (currentElementIndex < animatedElements.length) {
+                    // Mostrar siguiente elemento
+                    showNextElement();
+                } else if (currentSlideIndex < totalSlides - 1) {
+                    // Pasar a siguiente slide
                     showSlide(currentSlideIndex + 1);
                 }
             }
@@ -661,7 +603,6 @@
             }
             
             // Inicializar
-            createParticles();
             updateIndicator();
             
             // Eventos
@@ -683,26 +624,12 @@
             
             // Teclado
             document.addEventListener('keydown', (e) => {
-                switch(e.key) {
-                    case 'ArrowRight':
-                    case ' ':
-                    case 'PageDown':
-                        e.preventDefault();
-                        handleNext();
-                        break;
-                    case 'ArrowLeft':
-                    case 'PageUp':
-                        e.preventDefault();
-                        handlePrev();
-                        break;
-                    case 'Home':
-                        e.preventDefault();
-                        showSlide(0);
-                        break;
-                    case 'End':
-                        e.preventDefault();
-                        showSlide(totalSlides - 1);
-                        break;
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    handleNext();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    handlePrev();
                 }
             });
             
