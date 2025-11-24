@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Conectando Oportunidades - Para Gene</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00D4FF;
+            --secondary: #FF6B6B;
+            --accent: #4ECDC4;
+            --dark-bg: #0a0a0a;
+            --success: #00ffaa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            background: var(--dark-bg);
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .presentation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--dark-bg);
+        }
+        
+        .slides-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 5px 15px;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: left;
+            color: white;
+        }
+        
+        .slide.active {
+            display: flex;
+        }
+        
+        .slide-content {
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            color: #e0e0e0;
+        }
+
+        strong {
+            color: white;
+        }
+        
+        ul {
+            font-size: 1em;
+            line-height: 1.4;
+            margin-left: 1.2em;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+        
+        li {
+            margin-bottom: 0.4rem;
+        }
+        
+        .highlight {
+            background: rgba(0, 212, 255, 0.15);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .investment-box {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            text-align: center;
+        }
+
+        .investment-box h3 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content h4 {
+            color: var(--accent);
+            margin-bottom: 0.2rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.3em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+        }
+        
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-btn.prev::before {
+            content: "←";
+        }
+        
+        .nav-btn.next::before {
+            content: "→";
+        }
+        
+        .click-hint {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8em;
+            z-index: 1000;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 0 auto;
+            width: fit-content;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .click-hint.visible {
+            opacity: 1;
+        }
+        
+        .slide-indicator {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8em;
+            z-index: 1000;
+        }
+
+        @media (min-width: 769px) {
+            .slide-content { padding: 20px; }
+            h1 { font-size: 2.4em; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.7em; }
+            h2 { font-size: 1.4em; }
+            p { font-size: 0.95em; }
+        }
+
+        .slide-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .slide-content::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+        }
+        
+        .slide-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <div class="slides-container">
+            
+            <!-- Slide 1: Portada -->
+            <div class="slide active" id="slide-1">
+                <div class="slide-content">
+                    <h1>Conectando Oportunidades</h1>
+                    <p style="text-align: center; color: var(--accent); font-size: 1.2em;">
+                        Una forma simple de ayudar a miles de venezolanos a ganar más
+                    </p>
+                    <p style="text-align: center; font-size: 0.95em; margin-top: 1.5rem; color: #999;">
+                        Presentado especialmente para Gene
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 2: El Problema -->
+            <div class="slide" id="slide-2">
+                <div class="slide-content">
+                    <h2>El Problema: Dos mundos desconectados</h2>
+                    <p>En Venezuela hay miles de personas como <strong>María</strong>, que trabaja 12 horas y apenas gana para comer.</p>
+                    <p>Y hay cientos de negocios como el de <strong>Don Carlos</strong>, con productos geniales que nadie conoce fuera de su barrio.</p>
+                    <div class="highlight">
+                        <strong>No falta talento. No faltan productos. Falta la conexión.</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: La Solución -->
+            <div class="slide" id="slide-3">
+                <div class="slide-content">
+                    <h2>Nuestra solución: Como Uber, pero para ventas</h2>
+                    <p>Una app simple que conecta a personas que quieren vender (sin invertir en inventario) con negocios que quieren crecer (sin gastar en publicidad cara).</p>
+                    <div class="highlight">
+                        <strong>Vendedor:</strong> Gana comisión por cada venta.<br>
+                        <strong>Negocio:</strong> Vende más sin pagar sueldo fijo ni alquiler.<br>
+                        <strong>Nosotros:</strong> Ganamos una pequeña comisión cuando hay una venta.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Cómo Funciona -->
+            <div class="slide" id="slide-4">
+                <div class="slide-content">
+                    <h2>Cómo funciona en 3 pasos</h2>
+                    <ol style="margin-left: 1.5rem; font-size: 1.1em; color: #ddd;">
+                        <li><strong>Se registra</strong> en la app (5 minutos, gratis)</li>
+                        <li><strong>Comparte</strong> productos de negocios en WhatsApp, Instagram o cara a cara</li>
+                        <li><strong>Gana dinero</strong> por cada venta (¡sin invertir un bolívar!)</li>
+                    </ol>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--accent);">
+                        <em>Ya lo probamos con 50 vendedores. Todos ganaron su primer pago en menos de una semana.</em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 5: El Mercado -->
+            <div class="slide" id="slide-5">
+                <div class="slide-content">
+                    <h2>El mercado: Grande y listo</h2>
+                    <p>Más de <strong>2 millones de personas</strong> en Venezuela están buscando formas de ganar dinero extra.</p>
+                    <p>Miles de negocios locales tienen productos de calidad pero no saben cómo llegar a más clientes.</p>
+                    <p>En solo 3 meses, ya conectamos a 50 vendedores con 12 negocios. Las ventas crecen un 30% cada mes.</p>
+                </div>
+            </div>
+
+            <!-- Slide 6: ¿Qué necesitamos? -->
+            <div class="slide" id="slide-6">
+                <div class="slide-content">
+                    <h2>¿Qué necesitamos de ti?</h2>
+                    <p>No pedimos millones. Solo necesitamos <strong>$15,000</strong> para llevar esta solución a miles de personas.</p>
+                    <div class="investment-box">
+                        <h3>Con $15,000, en 6 meses logramos:</h3>
+                        <ul style="text-align: left; margin-top: 0.8rem; margin-left: 1.5rem;">
+                            <li>500 vendedores activos</li>
+                            <li>100 negocios conectados</li>
+                            <li>Break-even (gastos = ingresos)</li>
+                            <li>Y demostramos que el modelo funciona a gran escala</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: ¿Por qué ahora? -->
+            <div class="slide" id="slide-7">
+                <div class="slide-content">
+                    <h2>¿Por qué ahora es el momento?</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>1. La gente necesita ingresos YA</h4>
+                                <p>La crisis económica sigue empujando a millones a buscar alternativas.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>2. El comercio se está digitalizando</h4>
+                                <p>Cada vez más personas usan WhatsApp e Instagram para vender y comprar.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>3. Nosotros ya lo probamos</h4>
+                                <p>No es una idea en el papel. Ya funciona en la realidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Cierre -->
+            <div class="slide" id="slide-8">
+                <div class="slide-content">
+                    <h2>¿Te unes a esta oportunidad?</h2>
+                    <p>No te pedimos que apuestes a una idea abstracta.</p>
+                    <p>Te invitamos a <strong>apoyar una solución que ya está funcionando</strong> y que puede cambiar la vida de miles de personas —incluyendo a María y a Don Carlos.</p>
+                    <div class="highlight" style="background: rgba(0, 255, 170, 0.15); border-left-color: var(--success);">
+                        <strong>Con $15,000, no solo ganamos nosotros… ganan miles de venezolanos.</strong>
+                    </div>
+                    <p style="text-align: center; margin-top: 1.5rem; font-style: italic; color: var(--accent);">
+                        ¿Hablamos?
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Controles -->
+        <div class="controls">
+            <button class="nav-btn prev" onclick="previousSlide()"></button>
+            <button class="nav-btn next" onclick="nextSlide()"></button>
+        </div>
+        <div class="click-hint" id="clickHint">Haz clic o toca para continuar</div>
+        <div class="slide-indicator">
+            <span id="current-slide">1</span> / <span id="total-slides">8</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        document.getElementById('total-slides').textContent = totalSlides;
+        updateSlideIndicator();
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            if (index >= 0 && index < totalSlides) {
+                slides[index].classList.add('active');
+                currentSlide = index;
+                updateSlideIndicator();
+                updateClickHint();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) showSlide(currentSlide - 1);
+        }
+
+        function updateSlideIndicator() {
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function updateClickHint() {
+            const hint = document.getElementById('clickHint');
+            hint.classList.toggle('visible', currentSlide < totalSlides - 1);
+        }
+
+        document.addEventListener('click', () => {
+            if (currentSlide < totalSlides - 1) nextSlide();
+        });
+
+        document.addEventListener('touchstart', () => {
+            if (currentSlide < totalSlides - 1) nextSlide();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+            else if (e.key === 'ArrowLeft' || e.key === 'PageUp') previousSlide();
+        });
+
+        // Iniciar
+        setTimeout(() => showSlide(0), 100);
+    </script>
+</body>
+</html>
+
