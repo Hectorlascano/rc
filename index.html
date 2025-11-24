@@ -4,18 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Conectando Oportunidades - Presentación</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai.min.css">
     <style>
         :root {
             --primary: #00D4FF;
             --secondary: #FF6B6B;
             --accent: #4ECDC4;
-            --dark-bg: #1e1e1e;
+            --dark-bg: #0a0a0a;
         }
         
         * {
@@ -27,177 +21,155 @@
         html, body {
             overflow: hidden;
             height: 100%;
+            background: var(--dark-bg);
             touch-action: manipulation;
             -webkit-text-size-adjust: 100%;
         }
         
-        .reveal {
-            background: var(--dark-bg);
+        .presentation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
+            background: var(--dark-bg);
         }
         
-        .reveal .slides {
-            width: 100% !important;
-            height: 100% !important;
-            text-align: left;
-            font-size: 28px; /* Tamaño base más pequeño */
+        .slides-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
         }
         
-        .reveal .slides section {
-            padding: 20px 30px !important;
-            height: 100% !important;
-            display: flex !important;
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            display: none;
             flex-direction: column;
             justify-content: center;
-            box-sizing: border-box;
-            overflow: hidden !important;
+            align-items: center;
+            text-align: left;
+            color: white;
+        }
+        
+        .slide.active {
+            display: flex;
         }
         
         .slide-content {
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 10px 5px;
             width: 100%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 20px;
         }
         
-        /* Scrollbar personalizada */
-        .slide-content::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .slide-content::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
-            border-radius: 3px;
-        }
-        
-        .slide-content::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
-        
-        .reveal h1, .reveal h2, .reveal h3 {
+        h1, h2, h3 {
             color: var(--primary);
-            text-transform: none;
             font-weight: 700;
-            margin-bottom: 0.8rem;
-            word-wrap: break-word;
+            margin-bottom: 1rem;
         }
         
-        .reveal h1 {
-            font-size: 2.2em;
+        h1 {
+            font-size: 2.5em;
             text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            line-height: 1.2;
+            text-align: center;
         }
         
-        .reveal h2 {
-            font-size: 1.8em;
+        h2 {
+            font-size: 2em;
             border-bottom: 3px solid var(--primary);
-            padding-bottom: 0.3em;
-            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
         }
         
-        .reveal h3 {
-            font-size: 1.4em;
+        h3 {
+            font-size: 1.5em;
             color: var(--secondary);
-            margin-bottom: 0.6rem;
         }
         
-        .reveal p {
-            font-size: 1em;
+        p {
+            font-size: 1.2em;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        ul {
+            font-size: 1.1em;
             line-height: 1.4;
-            margin-bottom: 0.8rem;
+            margin-left: 1.5em;
+            margin-bottom: 1rem;
         }
         
-        .reveal ul, .reveal ol {
-            font-size: 0.9em;
-            line-height: 1.3;
-            margin-left: 1em;
-            margin-bottom: 0.8rem;
-        }
-        
-        .reveal li {
-            margin-bottom: 0.4rem;
+        li {
+            margin-bottom: 0.5rem;
         }
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.8rem;
-            margin: 1.2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
         
         .stat-card {
             background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--accent);
             text-align: center;
-            min-height: 90px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
         
         .stat-number {
-            font-size: 1.6em;
+            font-size: 2em;
             font-weight: bold;
             color: var(--accent);
             display: block;
-            line-height: 1;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
         }
         
         .flow-diagram {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 0.6rem;
-            margin: 1.2rem 0;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
         }
         
         .flow-step {
             text-align: center;
-            padding: 0.8rem;
+            padding: 1.5rem;
             background: rgba(0, 212, 255, 0.1);
-            border-radius: 8px;
-            min-width: 110px;
-            flex: 1;
-            min-height: 70px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            font-size: 0.85em;
+            border-radius: 10px;
+            min-width: 150px;
         }
         
         .flow-arrow {
-            font-size: 1.1em;
+            font-size: 1.5em;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .highlight-box {
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            padding: 1rem;
-            border-radius: 10px;
+            padding: 1.5rem;
+            border-radius: 12px;
             color: white;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
             text-align: center;
-            font-size: 0.95em;
         }
         
         .story-card {
             background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 0.8rem;
-            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--secondary);
         }
         
         .story-card.accent {
@@ -205,95 +177,102 @@
         }
         
         .money-flow {
-            font-size: 1.1em;
+            font-size: 1.3em;
             text-align: center;
-            padding: 1rem;
+            padding: 1.5rem;
             background: rgba(255, 107, 107, 0.1);
-            border-radius: 8px;
-            margin: 1rem 0;
+            border-radius: 10px;
+            margin: 1.5rem 0;
         }
         
         .phase-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 0.8rem;
-            margin: 1.2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
         }
         
         .phase-card {
             text-align: center;
-            padding: 1rem;
-            border-radius: 8px;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            font-size: 0.85em;
+            padding: 1.5rem;
+            border-radius: 10px;
         }
         
         .phase-1 { background: rgba(0, 212, 255, 0.1); }
         .phase-2 { background: rgba(78, 205, 196, 0.1); }
         .phase-3 { background: rgba(255, 107, 107, 0.1); }
         
-        /* CONTROLES DE NAVEGACIÓN MÓVIL */
-        .mobile-controls {
+        /* CONTROLES DE NAVEGACIÓN */
+        .controls {
             position: fixed;
             bottom: 20px;
             left: 0;
             right: 0;
-            display: none;
+            display: flex;
             justify-content: space-between;
             padding: 0 20px;
             z-index: 1000;
         }
         
-        .mobile-nav-btn {
+        .nav-btn {
             background: var(--primary);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.2em;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5em;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.2s;
         }
         
-        .mobile-nav-btn:active {
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+        }
+        
+        .nav-btn:active {
             transform: scale(0.95);
         }
         
-        /* Indicador de navegación */
-        .navigation-hint {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.6);
-            font-size: 0.7em;
-            text-align: center;
-            background: rgba(0,0,0,0.5);
-            padding: 5px 10px;
-            border-radius: 15px;
+        .nav-btn.prev::before {
+            content: "←";
         }
         
-        /* Responsive adjustments */
+        .nav-btn.next::before {
+            content: "→";
+        }
+        
+        .slide-indicator {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9em;
+            z-index: 1000;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .reveal .slides {
-                font-size: 24px; /* Tamaño más pequeño en tablets */
-            }
-            
-            .reveal .slides section {
-                padding: 15px 20px !important;
+            .slide {
+                padding: 15px;
             }
             
             .slide-content {
+                padding: 15px;
                 max-height: 75vh;
             }
+            
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.7em; }
+            h3 { font-size: 1.3em; }
+            p { font-size: 1.1em; }
             
             .flow-diagram {
                 flex-direction: column;
@@ -301,296 +280,291 @@
             
             .flow-arrow {
                 transform: rotate(90deg);
-                margin: 0.2rem 0;
+                margin: 0.5rem 0;
             }
             
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
+            .stats-grid,
             .phase-grid {
                 grid-template-columns: 1fr;
             }
             
-            /* Mostrar controles móviles */
-            .mobile-controls {
-                display: flex;
-            }
-            
-            .navigation-hint {
-                bottom: 80px; /* Subir para no chocar con controles */
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3em;
             }
         }
         
         @media (max-width: 480px) {
-            .reveal .slides {
-                font-size: 20px; /* Tamaño más pequeño en móviles */
-            }
-            
-            .reveal .slides section {
-                padding: 10px 15px !important;
-            }
-            
-            .stat-card, .story-card, .flow-step, .phase-card {
-                padding: 0.8rem;
-                min-height: auto;
-            }
-            
-            .highlight-box, .money-flow {
-                padding: 0.8rem;
+            .slide {
+                padding: 10px;
             }
             
             .slide-content {
+                padding: 10px;
                 max-height: 70vh;
             }
             
-            .mobile-nav-btn {
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.5em; }
+            h3 { font-size: 1.2em; }
+            p { font-size: 1em; }
+            
+            .stat-card,
+            .story-card,
+            .flow-step,
+            .phase-card {
+                padding: 1rem;
+            }
+            
+            .nav-btn {
                 width: 45px;
                 height: 45px;
-                font-size: 1em;
+                font-size: 1.2em;
             }
         }
-        
-        /* Animaciones */
-        .fragment.fade-in.visible {
-            animation: slideInUp 0.6s ease;
+
+        /* Scrollbar personalizada */
+        .slide-content::-webkit-scrollbar {
+            width: 8px;
         }
         
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .slide-content::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
         }
         
-        /* Centrado para slides específicos */
-        .center-slide {
-            text-align: center !important;
-        }
-        
-        .center-slide .slide-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        
-        /* Asegurar que no haya overflow */
-        .reveal .slides section * {
-            max-width: 100%;
-        }
-        
-        /* Ocultar controles nativos de reveal en móvil */
-        @media (max-width: 768px) {
-            .reveal .controls {
-                display: none !important;
-            }
+        .slide-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <div class="reveal">
-        <div class="slides">
-
+    <div class="presentation">
+        <div class="slides-container">
+            
             <!-- Slide 1: Portada -->
-            <section class="center-slide">
+            <div class="slide active" id="slide-1">
                 <div class="slide-content">
                     <h1>CONECTANDO OPORTUNIDADES</h1>
-                    <p style="color: var(--accent);">
+                    <p style="color: var(--accent); text-align: center; font-size: 1.3em;">
                         La plataforma que transforma el comercio en Venezuela
                     </p>
-                    <div style="margin-top: 1.5rem;">
-                        <div style="opacity: 0.8; font-size: 0.9em;">Presentación para Inversionistas</div>
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <div style="opacity: 0.8;">Presentación para Inversionistas</div>
                     </div>
                 </div>
-                <div class="navigation-hint">Usa las flechas → para navegar</div>
-            </section>
+            </div>
 
             <!-- Slide 2: El Problema -->
-            <section>
+            <div class="slide" id="slide-2">
                 <div class="slide-content">
                     <h2>EL PROBLEMA QUE RESOLVEMOS</h2>
                     
-                    <div class="fragment fade-in">
-                        <p style="color: var(--secondary); font-weight: bold; text-align: center;">
-                            "En Venezuela, el talento y los productos existen... pero la conexión falla"
-                        </p>
-                    </div>
+                    <p style="color: var(--secondary); font-weight: bold; text-align: center;">
+                        "En Venezuela, el talento y los productos existen... pero la conexión falla"
+                    </p>
                     
-                    <div class="fragment fade-in">
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <span class="stat-number">2M+</span>
-                                Personas buscan ingresos adicionales
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">85%</span>
-                                De pequeños negocios no venden fuera de su ciudad
-                            </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">2M+</span>
+                            Personas buscan ingresos adicionales
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">85%</span>
+                            De pequeños negocios no venden fuera de su ciudad
                         </div>
                     </div>
                     
-                    <div class="fragment fade-in">
-                        <p><strong>Dos realidades paralelas:</strong></p>
-                        <ul>
-                            <li>Personas con talento comercial, sin productos para vender</li>
-                            <li>Negocios con productos excelentes, sin alcance nacional</li>
-                        </ul>
-                    </div>
+                    <p><strong>Dos realidades paralelas:</strong></p>
+                    <ul>
+                        <li>Personas con talento comercial, sin productos para vender</li>
+                        <li>Negocios con productos excelentes, sin alcance nacional</li>
+                    </ul>
                 </div>
-                <div class="navigation-hint">↓ Más contenido</div>
-            </section>
+            </div>
 
             <!-- Slide 3: Historias Reales -->
-            <section>
+            <div class="slide" id="slide-3">
                 <div class="slide-content">
                     <h2>HISTORIAS QUE NOS INSPIRAN</h2>
                     
-                    <div class="fragment fade-in">
-                        <div class="story-card">
-                            <h3>María - Madre de 3 hijos</h3>
-                            <p>"Trabajo 12 horas al día y gano $150 mensuales. Quiero darle mejor educación a mis hijos, pero no tengo capital para comprar productos y vender."</p>
-                        </div>
+                    <div class="story-card">
+                        <h3>María - Madre de 3 hijos</h3>
+                        <p>"Trabajo 12 horas al día y gano $150 mensuales. Quiero darle mejor educación a mis hijos, pero no tengo capital para comprar productos y vender."</p>
                     </div>
                     
-                    <div class="fragment fade-in">
-                        <div class="story-card accent">
-                            <h3>Don Carlos - Importador</h3>
-                            <p>"Tengo productos de calidad que podrían venderse en todo el país, pero mi mercado se limita a quien puede llegar a mi local en Caracas."</p>
-                        </div>
+                    <div class="story-card accent">
+                        <h3>Don Carlos - Importador</h3>
+                        <p>"Tengo productos de calidad que podrían venderse en todo el país, pero mi mercado se limita a quien puede llegar a mi local en Caracas."</p>
                     </div>
                 </div>
-            </section>
+            </div>
 
             <!-- Slide 4: La Solución -->
-            <section>
+            <div class="slide" id="slide-4">
                 <div class="slide-content">
                     <h2>NUESTRA SOLUCIÓN</h2>
                     
-                    <div class="fragment fade-in">
-                        <p style="text-align: center; color: var(--primary);">
-                            "Como Uber conecta conductores con pasajeros, nosotros conectamos vendedores con negocios"
-                        </p>
-                    </div>
+                    <p style="text-align: center; color: var(--primary); font-size: 1.3em;">
+                        "Como Uber conecta conductores con pasajeros, nosotros conectamos vendedores con negocios"
+                    </p>
                     
-                    <div class="fragment fade-in">
-                        <div class="flow-diagram">
-                            <div class="flow-step">
-                                <strong>Vendedores</strong><br>
-                                Buscan ingresos
-                            </div>
-                            <div class="flow-arrow">→</div>
-                            <div class="flow-step" style="background: rgba(0, 212, 255, 0.2);">
-                                <strong>Plataforma</strong><br>
-                                Conecta y gestiona
-                            </div>
-                            <div class="flow-arrow">→</div>
-                            <div class="flow-step">
-                                <strong>Negocios</strong><br>
-                                Buscan vender más
-                            </div>
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <strong>Vendedores</strong><br>
+                            Buscan ingresos
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step" style="background: rgba(0, 212, 255, 0.2);">
+                            <strong>Plataforma</strong><br>
+                            Conecta y gestiona
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <strong>Negocios</strong><br>
+                            Buscan vender más
                         </div>
                     </div>
                     
-                    <div class="fragment fade-in">
-                        <div class="highlight-box">
-                            <strong>Valor único:</strong> Cero inversión en inventario para vendedores + Cero costo fijo de expansión para negocios
-                        </div>
+                    <div class="highlight-box">
+                        <strong>Valor único:</strong> Cero inversión en inventario para vendedores + Cero costo fijo de expansión para negocios
                     </div>
                 </div>
-            </section>
+            </div>
 
             <!-- Slide 5: Cómo Funciona -->
-            <section>
+            <div class="slide" id="slide-5">
                 <div class="slide-content">
                     <h2>CÓMO FUNCIONA EN LA PRÁCTICA</h2>
                     
-                    <div class="fragment fade-in">
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div style="font-size: 1.6em; color: var(--accent);">1</div>
-                                <strong>Registro</strong><br>
-                                En 5 minutos
-                            </div>
-                            <div class="stat-card">
-                                <div style="font-size: 1.6em; color: var(--accent);">2</div>
-                                <strong>Promoción</strong><br>
-                                Comparte productos
-                            </div>
-                            <div class="stat-card">
-                                <div style="font-size: 1.6em; color: var(--accent);">3</div>
-                                <strong>Comisión</strong><br>
-                                Gana por ventas
-                            </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div style="font-size: 2em; color: var(--accent);">1</div>
+                            <strong>Registro</strong><br>
+                            En 5 minutos
+                        </div>
+                        <div class="stat-card">
+                            <div style="font-size: 2em; color: var(--accent);">2</div>
+                            <strong>Promoción</strong><br>
+                            Comparte productos
+                        </div>
+                        <div class="stat-card">
+                            <div style="font-size: 2em; color: var(--accent);">3</div>
+                            <strong>Comisión</strong><br>
+                            Gana por ventas
                         </div>
                     </div>
                     
-                    <div class="fragment fade-in">
-                        <div class="money-flow">
-                            <strong>Ejemplo real:</strong><br>
-                            Venta de $100 → Vendedor gana $15 → Negocio gana $75 → Plataforma gana $10
-                        </div>
+                    <div class="money-flow">
+                        <strong>Ejemplo real:</strong><br>
+                        Venta de $100 → Vendedor gana $15 → Negocio gana $75 → Plataforma gana $10
                     </div>
                 </div>
-            </section>
-
-            <!-- Controles móviles -->
-            <div class="mobile-controls">
-                <button class="mobile-nav-btn" onclick="Reveal.left()">←</button>
-                <button class="mobile-nav-btn" onclick="Reveal.right()">→</button>
             </div>
 
+        </div>
+
+        <!-- Controles de navegación -->
+        <div class="controls">
+            <button class="nav-btn prev" onclick="previousSlide()"></button>
+            <button class="nav-btn next" onclick="nextSlide()"></button>
+        </div>
+
+        <!-- Indicador de slide -->
+        <div class="slide-indicator">
+            <span id="current-slide">1</span> / <span id="total-slides">5</span>
         </div>
     </div>
 
     <script>
-        Reveal.initialize({
-            hash: true,
-            controls: true,
-            progress: true,
-            center: false,
-            transition: 'slide',
-            plugins: [RevealNotes, RevealHighlight],
-            touch: true,
-            slideNumber: false,
-            showNotes: false,
-            margin: 0.05, // Márgen más pequeño
-            minScale: 0.5, // Escala mínima reducida
-            maxScale: 1.0, // Escala máxima fija
-            width: '100%',
-            height: '100%',
-            disableLayout: false
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        // Actualizar indicador
+        document.getElementById('total-slides').textContent = totalSlides;
+        updateSlideIndicator();
+
+        function showSlide(index) {
+            // Ocultar todas las slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Mostrar slide actual
+            if (index >= 0 && index < totalSlides) {
+                slides[index].classList.add('active');
+                currentSlide = index;
+                updateSlideIndicator();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function updateSlideIndicator() {
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
         });
 
-        // Prevenir zoom con doble tap en móviles
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length > 1) {
-                e.preventDefault();
-            }
-        }, { passive: false });
+        // Navegación táctil (swipe)
+        let touchStartX = 0;
+        let touchEndX = 0;
 
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(e) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
 
-        // Prevenir scroll accidental
-        document.addEventListener('scroll', function(e) {
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide(); // Swipe izquierda
+                } else {
+                    previousSlide(); // Swipe derecha
+                }
+            }
+        }
+
+        // Prevenir zoom y scroll accidental
+        document.addEventListener('gesturestart', (e) => {
             e.preventDefault();
-            window.scrollTo(0, 0);
-        }, { passive: false });
+        });
 
-        // También prevenir wheel zoom
-        document.addEventListener('wheel', function(e) {
+        document.addEventListener('gesturechange', (e) => {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gestureend', (e) => {
+            e.preventDefault();
+        });
+
+        // Prevenir scroll con rueda del mouse
+        document.addEventListener('wheel', (e) => {
             if (e.ctrlKey) {
                 e.preventDefault();
             }
